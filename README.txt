@@ -1,0 +1,1 @@
+DD Hero Slider, a lean responsive Susy slider with arrow and image pagination.
