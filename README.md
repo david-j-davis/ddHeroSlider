@@ -1,7 +1,7 @@
 ddHeroSlider
 =========
 
-**A lean responsive Susy slider with caret and image pagination created by [David Davis].**
+**A lean responsive Susy fading slider with caret and image pagination created by [David Davis].**
 
   - Built with Susy framework
   - Responsive slider
