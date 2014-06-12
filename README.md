@@ -23,6 +23,11 @@ Open source projects used:
 * [Modernizr] - duh
 * [jQuery] - duh 
 
+Demo
+-----------
+[ddHeroSlider]
+
+[ddHeroSlider]:http://david-james-davis.com/chproject
 [jQuery]:http://jquery.com
 [David Davis]:http://david-james-davis.com
 [Modernizr]:http://modernizr.com/
