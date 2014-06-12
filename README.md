@@ -1,7 +1,7 @@
 ddHeroSlider
 =========
 
-**A lean responsive Susy slider with arrow and image pagination created by [David Davis].**
+**A lean responsive Susy slider with caret and image pagination created by [David Davis].**
 
   - Built with Susy framework
   - Responsive slider
@@ -23,7 +23,7 @@ Open source projects used:
 * [Modernizr] - duh
 * [jQuery] - duh 
 
-
+[jQuery]:http://jquery.com
 [David Davis]:http://david-james-davis.com
 [Modernizr]:http://modernizr.com/
 [Susy]:http://susy.oddbird.net/
