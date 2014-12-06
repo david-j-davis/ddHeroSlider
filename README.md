@@ -1,11 +1,11 @@
 ddHeroSlider
 =========
 
-**A lean responsive Susy fading slider with caret and image pagination created by [David Davis].**
+**A lean responsive Flexbox slider with smooth transitions and text pagination created by [David Davis].**
 
-  - Built with Susy framework
+  - Built with Flexbox
   - Responsive slider
-  - lightweight 
+  - lightweight jQuery
 
 
 
@@ -19,7 +19,7 @@ Tech
 
 Open source projects used:
 
-* [Susy] - Susy SCSS framework
+* [Compass] - duh
 * [Modernizr] - duh
 * [jQuery] - duh 
 
@@ -31,5 +31,5 @@ Demo
 [jQuery]:http://jquery.com
 [David Davis]:http://david-james-davis.com
 [Modernizr]:http://modernizr.com/
-[Susy]:http://susy.oddbird.net/
+[Compass]:http://compass-style.org/
 
