@@ -1,0 +1,266 @@
+@import "compass/css3";
+@import "libs/reset";
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+//Global
+
+html {
+    font-size: 100%;
+    background: 0 0;
+}
+body {
+    color: #16766b;
+    color: #fff;
+    position: relative;
+}
+img {
+    display: block;
+}
+
+//Modules
+
+.module {
+    overflow: hidden;
+    *zoom: 1;
+    width: 100%;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+
+    &:first-of-type {
+        padding-top: 6.5em;
+    }
+    &:last-of-type {
+        padding-bottom: 6.5em;
+    }
+    .content {
+        z-index: 10;
+    }
+    .fullbg {
+        z-index: 1;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    img {
+        *zoom: 1;
+        max-width: 62.5em;
+        width: 62.5em;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        @include clearfix;
+    }
+
+    &.bgimg {
+        max-width: 62.5em;
+        width: 100%;
+        margin: 0 auto;
+    }
+    &.small-stacked {
+        position:relative;
+
+        @media (min-width:55.5em) {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        }
+
+        img {
+        width: 100%
+        }
+    }
+
+    }
+}
+
+.module-hero {
+	position: relative;
+    padding: 2em 0;
+	@include clearfix;
+
+    .hero-show {
+        display: flex;
+    }
+
+	.content {
+		z-index: 10;
+		position: relative;
+    	padding: 0;
+    	overflow: hidden;
+    	*zoom: 1;
+    	position: relative;
+        margin: auto;
+
+    	@media (min-width: 55.5em) {
+    	max-width: 55.5em;
+		}
+
+    	.main-block {
+    		display: block;
+    		position: relative;
+    		padding: 1em;
+    		background-color: #16766b;
+			background-color: rgba(22,118,107,0.8);
+			color: white;
+            margin: auto;
+            height: 10em;
+
+    		@media (min-width:27em) {
+			    padding: 1em;
+			}
+			@media (min-width: 55.5em) {
+                height: 23em;
+                max-width: 27.5em;
+				margin-left: 0;
+			}
+
+			h3 {
+				font-size: 1.5em;
+                line-height: 1.25em;
+                color: white;
+
+                @media (min-width: 55.5em) {
+                font-size: 2.125em;
+                }
+			}
+    	}
+    	.boxes {
+    		display: none;
+		    overflow: hidden;
+		    *zoom: 1;
+
+		    @media (min-width:34.5em) {
+                display: flex;
+		    	margin-left: 0;
+		    }
+            @media (min-width:55.5em) {
+                max-width: 27.5em;
+            }
+
+		    .box {
+		    	background-color: #fff;
+			    background-color: rgba(255, 255, 255, .8);
+			    color: #425563;
+			    padding: .5em 1em .5em .5em;
+			    //width: 23.6363636%;
+                margin: auto;
+			    margin-right: 1.8181818%;
+			    flex:1;
+			    height: 6.5em;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+			    &:hover {
+			    	background-color: #16766b;
+				    background-color: rgba(22, 118, 107, .8);
+				    color: #fff;
+			    }
+
+			    // @media (min-width:34.5em) {
+			    // 	max-width: 34.5em;
+				   //  max-width: 6.5em;
+				   //  height: 6.5em;
+			    // }
+
+		    }//end .box
+
+		   a.hero-pagination {
+    			cursor: pointer;
+
+    			&.active {
+    				background-color: #16766b;
+					color: #FFF;
+    			}
+    		}
+    	}//end .boxes
+	}
+
+	&.slideshow-wrapper {
+		padding-top: 0em;
+    	padding-bottom: 0;
+
+    	@media (min-width:27.5em) {
+    		padding-top: 1em;
+    	}
+        @media (min-width:55.5em) {
+            padding-bottom: 2em;
+        }
+
+    	.inner-container {
+    		@include clearfix;
+
+    		.hero-arrow-right {
+                display: block;
+    			width: 50px;
+    			position: absolute;
+			    z-index: 11;
+			    height: 50px;
+			    background: url(../img/white-arrow.png) no-repeat center center;
+			    background-color: rgba(22, 118, 107, .8);
+			    bottom: 25%;
+
+                @media (max-width:34.5em) {
+                -webkit-box-shadow: -7px 0px 0px 0px rgba(14,77,69,0.8);
+                -moz-box-shadow: -7px 0px 0px 0px rgba(14,77,69,0.8);
+                box-shadow: -7px 0px 0px 0px rgba(14,77,69,0.8);
+                }
+                @media (min-width:34.5em) {
+                display: none;
+                }
+    		}
+    	@media (min-width:27.5em) and (min-width:62.5em) {
+    		max-width: 62.5em;
+		    padding-left: 0;
+		    padding-right: 0;
+		    margin-left: auto;
+		    margin-right: auto;
+    	}
+    	}
+    	.floatcontainer {
+    		float: right;
+    		width: 50px;
+    	}
+
+    	.slideshow-container {
+            margin: auto;
+    		position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+
+		    .content {
+                @media (min-width:55.5em) {
+		    	margin-top: 3em;
+                }
+
+		    }
+    	}
+    	.content {
+	    	&.slideshow {
+                width: 100%;
+	    		margin-top: 25.5em;
+	    	}
+    	}
+	}
+}

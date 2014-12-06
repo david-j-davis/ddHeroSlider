@@ -7,37 +7,23 @@
   <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>ddHeroSlider.js | A lean responsive Susy slider with arrow and image pagination.</title>
-	<link rel="stylesheet" href="css/app-min.css" />
-
-	<script src="js/modernizr.js"></script>
-	<!-- <script type="text/javascript" src="[JS library]"></script> -->
-	<!--[if (gte IE 6)&(lte IE 8)]>
-	  <script type="text/javascript" src="bower_components/selectivizr/selectivizr.js"></script>
-	  
-	<![endif]-->
-
-
+	<title>Hero Slider by David J. Davis</title>
+	<link rel="stylesheet" href="css/hero.css" />
+	<link rel="stylesheet" href="../stylesheets/ddstyles-subpages-min.css">
+	<script src="js/libs/modernizr.js"></script>
   </head>
   <body>
 
 
 	<!-- Hero with 4 Box Index -->
-	<div class="module module-hero indexed-slideshow-wrapper">
+	<div class="module module-hero slideshow-wrapper">
 
 		<div class="inner-container">
-
-    	<div class="floatcontainer">
-        <a href="#" class="hero-arrow-right icon" ></a>
-    	</div>
-		
-    	
 		<div class="hero-show">
 
-
-			<div class="slideshow-idx-container hero-slide active" data-slide="firstSlide">
+			<div class="slideshow-container hero-slide active" data-slide="firstSlide">
 				<div class="content">
-				  <div class="main-block block-link style-schwab"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3></div>
+				  <div class="main-block"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3></div>
 				</div>
 
 				<div class="fullbg small-stacked" >
@@ -45,9 +31,9 @@
 				</div>
 			</div>
 
-			<div class="slideshow-idx-container hero-slide" data-slide="secondSlide">			
+			<div class="slideshow-container hero-slide" data-slide="secondSlide">			
 				<div class="content">
-				  <div class="main-block block-link style-schwab"><h3>Lorem ipsum dolor sit amet.</h3></div>
+				  <div class="main-block block-link"><h3>Lorem ipsum dolor sit amet.</h3></div>
 				</div>
 
 				<div class="fullbg small-stacked" >
@@ -55,9 +41,9 @@
 				</div>
 			</div>
 
-			<div class="slideshow-idx-container hero-slide" data-slide="thirdSlide">			
+			<div class="slideshow-container hero-slide" data-slide="thirdSlide">			
 				<div class="content">
-				  <div class="main-block block-link style-schwab"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</h3></div>
+				  <div class="main-block block-link"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</h3></div>
 				</div>
 
 				<div class="fullbg small-stacked" >
@@ -65,9 +51,9 @@
 				</div>
 			</div>
 
-			<div class="slideshow-idx-container hero-slide" data-slide="fourthSlide">			
+			<div class="slideshow-container hero-slide" data-slide="fourthSlide">			
 				<div class="content">
-				  <div class="main-block block-link style-schwab"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h3></div>
+				  <div class="main-block block-link"><h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h3></div>
 				</div>
 
 				<div class="fullbg small-stacked" >
@@ -76,7 +62,7 @@
 			</div>
 	
 
-		<div class="content slideshow-idx">
+		<div class="content slideshow">
 		  <div class="boxes">
 			<a class="box hero-pagination active" data-link="firstSlide">
 			  <span>Slide 1</span>
@@ -94,12 +80,107 @@
 		</div>
 
 	  </div>
+	  <div class="floatcontainer">
+        <a href="#" class="hero-arrow-right icon" ></a>
+     </div>
 	</div>
 	</div>
+
+<pre class="codeReveal"><code>
+//-----------------------------------------
+//jQuery code for the content gallery above
+//-----------------------------------------
+
+//Check for screen size
+
+var smallScreen;
+
+if(!Modernizr.mq('(min-width:440px)') ){
+  smallScreen = true;
+} else {
+  smallScreen = false;
+}
+
+  function HeroSlideshow() {
+
+    if (smallScreen === false) {
+
+      $('div.hero-slide:gt(0)').hide();
+       
+      var slide = ['firstSlide', 'secondSlide', 'thirdSlide', 'fourthSlide'];
+      var startindex=0;
+      var divSlide = $('div.hero-slide');
+      var divPagin = $('a.hero-pagination');
+      var arrow = $('a.hero-arrow-right');
+
+      autoheroslideshow = setInterval(function(){
+
+          startindex++;
+          if (startindex == slide.length) {startindex=0;}
+          divSlide.removeClass('active').fadeOut();
+          divPagin.removeClass('active');
+          $('a.hero-pagination[data-link=' + slide[startindex] + ']').addClass('active'); 
+          $('div.hero-slide[data-slide=' + slide[startindex] + ']').addClass('active').fadeIn();
+  
+      }, 2500) //End auto slide show
+      
+      divPagin.click(function(e){
+
+          e.preventDefault();
+          clearInterval(autoheroslideshow);
+          var currLink = $(this).data('link'); 
+          divSlide.removeClass('active').fadeOut();
+          divPagin.removeClass('active');
+          $('a.hero-pagination[data-link=' + currLink + ']').addClass('active'); 
+          $('div.hero-slide[data-slide=' + currLink + ']').addClass('active').fadeIn();
+    
+      })// End pagination function
+
+      arrow.click(function(e){
+
+          e.preventDefault();
+          clearInterval(autoheroslideshow);
+
+          var nextDiv = $('div.hero-slide.active').next(divSlide);
+          var nextPagin = $('a.hero-pagination.active').next(divPagin);
+          var theIndex = nextDiv.index();
+
+          if (theIndex <= 3) {
+              divSlide.not(nextDiv).removeClass('active').fadeOut();
+              divPagin.not(nextPagin).removeClass('active');
+              nextDiv.addClass('active').fadeIn();
+              nextPagin.addClass('active');
+                } else {
+                  divSlide.not(nextDiv).removeClass('active').fadeOut();
+                  divPagin.not(nextPagin).removeClass('active');
+                  $('div.hero-slide:first').addClass('active').fadeIn();
+                  $('a.hero-pagination:first').addClass('active');
+                }
+
+      })// End arrow function
+    } //End if statement
+  } HeroSlideshow();// End & initialize main HeroSlideshow function
+
+</code></pre>
+<h3 class="codeTitle"><a href="">Click to view jQuery code</a></h3>
+
 
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="js/ddHeroSlider.js"></script>
+	<script src="js/libs/ddHeroSlider.js"></script>
+	<script src="../javascripts/iconic.min.js"></script>
+	<script src="../javascripts/subpagescripts.js"></script>
+	<script>
+		$('.hero-slide').ddHeroSlider();
+	</script>
+	<script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-35054083-1');ga('send','pageview');
+        </script>
 
 	
   </body>
