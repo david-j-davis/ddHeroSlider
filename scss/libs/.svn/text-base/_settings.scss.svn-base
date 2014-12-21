@@ -1,0 +1,142 @@
+/**
+ * KNOWN ISSUES
+ * MAX-WIDTH + BORDER-BOX creates additional width in IE8. Need to investigation Susy usage of Max-Width in ie8.
+ */
+
+// SET UP YOUR VARIABLES IN THIS FILE
+$MQs: true;
+$_DEBUG: true;
+
+$assetroot: '../assets';
+$font-root: '#{$assetroot}/fonts';
+$img-root: '#{$assetroot}/img';
+
+$legacy-support-for-ie: true;
+// $legacy-support-for-ie6 : $legacy-support-for-ie;
+$legacy-support-for-ie7 : $legacy-support-for-ie;
+$legacy-support-for-ie8 : $legacy-support-for-ie;
+// $breakpoint-raw-output: false;
+
+
+// Fonts, measure, leading and typefaces
+// ------------------------------------------------------------
+
+// Fonts size and line height defaults for our calculations
+
+$base-font-size						: 16px; 				// Sets the browser default size. Shouldn't need to change this.
+$base-line-height					: 8px;					// Baseline grid. Set to a sensible, small size.
+$round-to-nearest-half-line			: false;  				// Round the line height to the nearest half line height. Off by default 
+
+
+
+// Susy
+// ------------------------------------------------------------
+$small-screen-column-count:		4;
+// $small-screen-column-count:		8;
+// $small-screen-column-count:		12;
+$full-screen-column-count:		18;
+
+
+$total-columns  : $full-screen-column-count;             		// a 16-column grid
+$column-width   : rhythm(6);            // each column is 4em wide
+$gutter-width   : rhythm(1);            // 1em gutters between columns
+$grid-padding   : 0; //rhythm(0); //$gutter-width + 0.5em;  // grid-padding equal to gutters
+
+$container-style: magic;
+
+
+// Colours
+// ------------------------------------------------------------
+
+// Define your main colour palette
+$sch-drkerblue: #273744;
+$sch-drkblue: #425563;
+$sch-brndblue: #00a0df;
+
+
+$sch-lghtgry: #f4f6f7;
+$sch-medgry: #98a4ae;
+// $sch-brndblue: rgb(0,160,223);
+ 
+
+$transparency: 0.8; // between 0 and 1 
+
+
+
+//
+//contrast function
+$contrasted-dark-default: $sch-drkblue;
+$contrasted-light-default: #fff;
+$contrasted-lightness-threshold: 70%;
+
+
+
+$primary							: $sch-brndblue;
+$secondary							: $sch-drkblue;	
+$tertiary							: #444; 
+
+// Assign colours to variable roles
+$base-color							: $primary;
+$heading-color						: $secondary;
+$secondary-heading-color			: $tertiary;
+
+// Links
+$action								: $primary;
+$action-respond						: $secondary;
+$secondary-action					: $action-respond;
+$secondary-action-respond			: $action;
+
+
+
+// Alerts, errors and UI interface
+$alert 								: red;
+$success 							: green;
+
+$hide-text-direction				: left;
+
+
+// Content Padding
+$wrapper-padding: 1em;
+
+
+// offpanel nav break columns count
+$menu-interm-size: 13;
+$menu-height: 5em;
+
+
+
+// slideshow stacks @ # of columns
+$slideshow-breakpoint: 8;
+
+
+// Transitions
+// ------------------------------------------------------------
+$default-transition-property 		: all;
+$default-transition-duration 		: 0.5s;
+$default-transition-function 		: ease;
+$default-transition-delay    		: false;
+
+
+
+// Functions for px to em conversions
+// ------------------------------------------------------------
+
+@function emify($target, $context) {
+   @if $target == 0 { @return 0 }
+   @return $target / $context + 0em;
+}
+
+// Make px to ems using base-font-size 
+// echo as: font-size: em-font(#px);
+
+@function em-font($target, $context: $base-font-size) {
+   @return emify($target, $context);
+}
+
+
+// Make px to ems using base-line-height 
+// echo as: font-size: em-base(#px);
+
+@function em-base($target, $context: $base-line-height) {
+   @return emify($target, $context);
+}

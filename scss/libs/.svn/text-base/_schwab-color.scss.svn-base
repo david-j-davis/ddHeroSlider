@@ -1,0 +1,149 @@
+// Contrast Heading Selectors Mixin
+// -------------------------------------------------------
+@mixin heading-matrix($color: #fff) {
+	h1,h2,h3,blockquote,.heading { color: $color; }
+}
+@mixin link-matrix($color: #fff) {
+	.link { color: $color; }
+}
+ 
+
+// Contrast Mixins
+// -------------------------------------------------------
+@mixin color-decider($bgcolor: $sch-brndblue, $trans: true, $includeheaders: true) {
+    background-color: $bgcolor;
+    @if ($trans == true) { background-color: rgba($bgcolor, $transparency); }
+
+    color: contrast-color($bgcolor);
+
+    @if ($includeheaders == true) {
+	    // anytime its darkblue, headers are schwabblue
+	    @if (contrast-color($bgcolor) == $action-respond) {
+	    	@extend %heading-matrix-schwab;
+	    	@extend %link-matrix-schwab;
+	    	// @include heading-matrix($sch-brndblue);
+	    	// @include link-matrix($sch-brndblue);
+	    }
+	    @else {
+	    	@extend %heading-matrix-white;
+	    	@extend %link-matrix-white;
+	    	// @include heading-matrix();
+	    	// @include link-matrix();
+	    }
+	}
+}
+
+ 
+@mixin schwab-contrast($style: 'default', $type: 'box') {
+  @if ($style == 'menu') {
+    // background-color: #fff;
+    // color: $sch-drkblue;
+    
+    @include color-decider(#fff, false, false);
+    @include link-matrix($sch-drkerblue);
+    // @include color-decider($sch-drkerblue);
+    // @include color-decider(#fff, false);
+  }
+  @elseif ($style == 'grayarea') {
+    // background-color: $sch-lghtgry;
+    // color: $sch-drkblue;
+    // @include heading-matrix($sch-brndblue);
+    // @include link-matrix($sch-brndblue);
+
+    @include color-decider($sch-lghtgry, false);
+  }
+
+  // BOX STYLES
+  @elseif ($style == 'bluebox') {
+    // background-color: $sch-brndblue;
+    // background-color: rgba($sch-brndblue, $transparency);
+    // color: #fff;
+    // @include heading-matrix();
+    // @include link-matrix();
+
+    @include color-decider($sch-brndblue);
+	@if ($type == 'anchor') {
+		.no-touch &:hover {
+			@include color-decider($sch-drkerblue);
+	    }
+	}
+  }
+  @elseif ($style == 'darkbluebox') {
+    // background-color: $sch-drkerblue;
+    // background-color: rgba($sch-drkerblue, $transparency);
+    // color: #fff;
+    // 
+    @include color-decider($sch-drkerblue);
+    @if ($type == 'anchor') {
+		.no-touch &:hover {
+			@include color-decider();
+	    }
+	}
+  }
+  @elseif ($style == 'whitebox') {
+    // background-color: #fff;
+    // background-color: rgba(#fff,0.9);
+    // color: $sch-drkblue;
+    // @include heading-matrix($sch-brndblue);
+    // @include link-matrix($sch-brndblue);
+
+    @include color-decider(#fff);
+    @if ($type == 'anchor') {
+		.no-touch &:hover {
+			@include color-decider();
+	    }
+	}
+  }
+  @elseif ($style == 'graybox') {
+    // background-color: $sch-medgry;
+    // background-color: rgba($sch-medgry, $transparency);
+    // color: #fff;
+    // @include heading-matrix();
+    // @include link-matrix();
+
+    @include color-decider($sch-medgry);
+    @if ($type == 'anchor') {
+		.no-touch &:hover {
+			@include color-decider();
+	    }
+	}
+  }
+
+  // DEFAULT
+  @else {
+    // background-color: #fff;
+    // color: $sch-drkblue;
+    // @include heading-matrix($sch-brndblue);
+    // @include link-matrix($sch-brndblue);
+
+    @include color-decider(#fff, false);
+  }
+};
+
+/**
+ * EXTENDS of very common mixin results. 
+ * % Prefix doesnt render class externally unless extended
+ * ------------------------------------------------------------------------------
+ */
+
+// heading/link color stlyes for use in default and hover states
+%heading-matrix-schwab { @include heading-matrix($sch-brndblue); }
+%heading-matrix-white { @include heading-matrix(); }
+
+%link-matrix-schwab { @include link-matrix($sch-brndblue); }
+%link-matrix-white { @include link-matrix(); }
+
+
+// block and blocklink color styles
+a%block-link-color-style {
+    &.style-schwab { @include schwab-contrast(bluebox, anchor); }
+    &.style-dark { @include schwab-contrast(darkbluebox, anchor); }
+    &.style-light { @include schwab-contrast(whitebox, anchor); }
+    &.style-selectable { @include schwab-contrast(graybox, anchor); }
+}
+%block-color-style {
+    &.style-schwab { @include schwab-contrast(bluebox); }
+    &.style-dark { @include schwab-contrast(darkbluebox); }
+    &.style-light { @include schwab-contrast(whitebox); }
+    &.style-selectable { @include schwab-contrast(graybox); }
+}

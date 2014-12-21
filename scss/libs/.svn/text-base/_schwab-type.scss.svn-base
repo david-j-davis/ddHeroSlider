@@ -1,0 +1,134 @@
+
+// Module Based Combos
+// ------------------------------------------------------------
+
+// default. Assigned to module core.
+.copy-default {
+    .meta-heading {
+        @extend .text-meta;
+    }
+    blockquote p {
+        background: rgba($sch-drkerblue, 0.05);
+        padding: rhythm(2);
+        border-radius: 5px;
+        @include at-breakpoint(10) {
+            background: none;
+            padding:0;
+        }
+    }
+    // p {
+    //     @extend .text-sub-heading;
+    // }
+}
+
+
+// USED FOR 3 Column Inset Layouts
+// .copy-wrapper {
+//     /**
+//      * removed for padding on .content
+//      */
+//     // @include span-columns(16,18);
+//     // @include pre(1);
+//     @include at-breakpoint(12) {
+//         @include span-columns(7,12);
+//         @include pre(0);
+//     }
+    
+//     p {
+//         @extend .text-sub-heading;
+//     }
+// }
+
+
+// USED FOR 3 Column Inset Layouts CONTEXT BOXES
+.copy-triple-box {
+    .heading {
+        @extend .text-area-title;
+        margin-bottom: 0;
+        @include at-breakpoint(12) {
+            margin-bottom: 1em;
+        }   
+    }
+    .description {
+        position: absolute;
+        top:50%;
+
+        display:none;
+        @include at-breakpoint(12) {
+            display:inline;
+        }
+        @extend .text-description;  
+    }
+}
+
+// USED For Secondary Main-Box Areas
+.copy-main-block {
+    h2 {
+        @extend .text-big-bold;
+        margin:0;
+    }
+    h3 {
+        @extend .text-big;
+        margin-top:0;
+    }
+    p {
+        @extend .text-sub-heading;
+        margin-bottom:0;
+    }
+    .bottom-link {
+        @include at-breakpoint(8) {
+            position: absolute;
+            bottom: 1em; right: 2em;
+        }
+    }
+    .action-icon {
+        @include at-breakpoint(10) {
+            position: absolute;
+            top: 50%;
+            left: auto;
+            right: -8em;
+            margin-top: -4.25em;
+        }
+    }
+}
+
+.copy-cta-block {
+    h2 {
+        @extend .text-area-title;
+        margin-top:0;
+    }
+    h3 {
+        @extend .text-area-title;
+        margin-top:0;
+    }
+    .heading {
+        @extend .text-area-title;
+        // margin-bottom: 0;
+        @include at-breakpoint(12) {
+            margin: rhythm(2) 0;
+        }   
+    }
+    p {
+        @extend .text-description;
+    }
+    .bottom-link {
+        @include at-breakpoint(12) {
+            position: absolute;
+            bottom: 0em; right: 1em;
+        }
+    }
+}
+
+// USED For Split col info box
+.copy-recent-info {
+    .heading {
+        @extend .text-sub-heading;
+        margin-bottom: rhythm(2);
+    }
+    p {
+        @extend .text-description;
+        margin-bottom:0;
+    }
+}
+
+

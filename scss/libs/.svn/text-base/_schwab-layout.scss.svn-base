@@ -1,0 +1,168 @@
+
+// Schwab Mixins
+// -------------------------------------------------------
+@mixin layout-square($columns: 8, $heightonly: false) {
+  @if ($heightonly == 'height') {
+    height: columns($columns, $total-columns, static); // ($columns * $column-width) + (($columns - 1) * $gutter-width);
+    @content;
+  }
+  @else {
+    @include layout($columns) {
+      @include set-container-width;
+      height: columns($columns, $total-columns, static); // ($columns * $column-width) + (($columns - 1) * $gutter-width);
+      @content;
+
+      // max-width + border-box bug
+      .lte8 & {width: columns($columns, $total-columns, static);}
+    }
+  }
+}
+
+
+// Module Core Mixin
+// -------------------------------------------------------
+@mixin module( $columns:16, $contentpadding:$wrapper-padding, $topbotpadding: rhythm(4) ) {
+	position: relative;
+	padding: $topbotpadding 0;
+
+	.content { 
+		@extend .copy-default;
+		position: relative;
+		padding:0 $contentpadding; // inner-content padding
+
+		@include clearfix;
+		
+		@content;
+
+		@include container($columns);
+		// @include susy-grid-background;
+	}
+}
+
+
+// Large Block Mixin
+// -------------------------------------------------------
+@mixin main-block( $sectioncolumns: 16, $targetsize: 8 ) {
+	@extend .copy-main-block;
+
+	$size-itrm: $sectioncolumns / 2;
+	$size-larg: ($sectioncolumns / 2) + ($sectioncolumns / 8);
+	$size-full: $sectioncolumns;
+
+	display: block;
+	position: relative;
+	padding: 1em;
+
+	@content;
+	
+	@include at-breakpoint($size-itrm) {
+		@include layout-square($targetsize) { // block and center
+			@include set-container-width; 
+			margin: 0 auto; 
+			padding: 1em;
+			@if ($targetsize < 8) { padding: 1.5em; }
+		};
+	}
+	@include at-breakpoint($size-larg) {
+		@include layout-square($targetsize) { };
+		@include pre(0); // push one column from left
+	}
+	@include at-breakpoint($size-full) {
+		@if ($targetsize == 7) { @include pre(1); } // reset to left
+		@else { @include pre(0); } // reset to left
+	}
+}
+
+// Right Side CTA Block Mixin
+// -------------------------------------------------------
+@mixin cta-block( $sectioncolumns: 16, $targetsize: 8 ) {
+	@extend .copy-cta-block;
+
+	$size-itrm: 8;
+	$size-larg: 10;
+	$size-full: $sectioncolumns;
+
+	display: block;
+	position: relative;
+	padding: 1em 4em 1em 1em;
+
+	@content;
+	
+	@include at-breakpoint($size-itrm) {
+		@include layout-square($size-itrm) { // block and center
+			@include set-container-width;
+			height: auto; 
+			margin: 0 auto; 
+			padding: 1em;
+			// @if ($targetsize < 8) { padding: 1.5em; }
+			// @include pre(1);
+		};
+	}
+	@include at-breakpoint($size-larg) {
+		// @include layout-square($targetsize) { };
+		@include pre(0); // push one column from left
+	}
+	@include at-breakpoint(13) {
+		@include layout-square($targetsize);
+		// @if ($targetsize == 7) { @include pre(1); } // reset to left
+		// @else { @include pre(0); } // reset to left
+		@include pre(0);
+	}
+}
+
+
+// Triple Block Mixin
+// -------------------------------------------------------
+@mixin triple-box( $type: bluebox ) {
+	@extend .row;
+	@extend .copy-triple-box;
+
+	/**
+     * removed for padding on .content
+     */
+	// @include span-columns(16);
+    // @include pre(1);
+
+	@include at-breakpoint(10) {
+	/**
+     * removed for padding on .content
+     */
+		// width: auto;
+		// float: none;
+		// display: block;
+		// @include container(10);
+		@include layout(9) { @include container;}
+	}
+	@include at-breakpoint(12) {
+		// @include container(12);
+		@include layout(12) { @include container;}
+	}
+
+	.tri-box {
+		@include schwab-contrast($type); // todo move to external pattern
+		position: relative;
+
+		width: 100%;
+		display:block;
+
+		padding:1em;
+		margin:1px 0;
+
+		@include at-breakpoint(10) {
+			width:33.33333%;
+			float:left;
+			margin:0;
+			@include layout-square(3, height);
+
+			&:nth-child(2) {
+				border-left: 1px solid #fff;
+				border-right: 1px solid #fff;
+			}
+		}
+		@include at-breakpoint(12) {
+			// @include span-columns(4);
+			@include layout-square(4, height);
+			// @include nth-omega();
+		}
+	}
+}

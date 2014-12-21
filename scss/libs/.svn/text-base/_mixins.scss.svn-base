@@ -1,0 +1,169 @@
+@import "settings";
+@import "compass/css3";
+@import "compass/utilities";
+
+
+
+// ADD YOUR OWN MIXINS AND HELPERS HERE
+// DESCRIBE WHAT EACH DOES AND HOW TO USE THEM
+
+// Font styles
+$pri-font: "DIN Neuzeit Grotesk W01";
+$sec-font: "BT Clarendon W01"; // "Clarendon W01 Light 692104";
+$base-font: "";
+
+@mixin hard-type {
+  font-family:$pri-font; 
+  font-weight: 700; 
+  font-style: normal;
+	text-transform: uppercase;
+}
+@mixin soft-type {
+  font-family:$sec-font; font-weight: 200; font-style: normal;
+}
+
+
+// List styles
+// -------------------------------------------------------
+
+// Mixins for list style types
+@mixin unordered {
+	 list-style-position: outside; 
+	 list-style-type: disc;
+}
+
+@mixin unordered-inside {
+	 list-style-position: inside; 
+	 list-style-type: disc;
+}
+
+@mixin ordered {
+	list-style-position: outside; 
+	list-style-type: decimal;
+}
+
+@mixin ordered-inside {
+	list-style-position: inside; 
+	list-style-type: decimal;
+}
+
+@mixin nobullet {
+	list-style-type: none;
+}
+
+@mixin flatlist {
+	list-style-type: none;
+	margin:0;
+	padding:0;
+	li { margin:0;padding:0; }
+}
+
+
+
+// Advanced typography settings
+// -------------------------------------------------------
+
+// Get advanced with type if needed for ligatures etc...
+
+@mixin advancedtype {
+	//font-variant-ligatures: contextual;  				// Set the default for ligatures
+	//-moz-font-feature-settings: "liga=1,dlig=1";    	// Ligature settings for mozilla
+	font-kerning: normal; 								// Set the default for kerning
+	-webkit-font-smoothing: antialiased; 				// Improve (or in some cases royally screw with) safari's legibility somewhat
+	// font-synthesis: none; 							// Don't allow the font to create sythetic bold/italic
+	// text-rendering: optimizeLegibility; 				// Improve kerning pairs. Webkit gets funny with this sometimes
+}
+
+// Animation Styles
+// -------------------------------------------------------
+.ext-animation-color {
+  @include transition-property(color, background-color);
+  @include transition-duration();
+  @include transition-timing-function();
+}
+
+// Retina images. 
+// Use with care - http://37signals.com/svn/posts/3271-easy-retina-ready-images-using-scss
+// -------------------------------------------------------
+
+@mixin image-2x($image, $width, $height) {
+  @media (min--moz-device-pixel-ratio: 1.3),
+         (-o-min-device-pixel-ratio: 2.6/2),
+         (-webkit-min-device-pixel-ratio: 1.3),
+         (min-device-pixel-ratio: 1.3),
+         (min-resolution: 1.3dppx) {
+    /* on retina, use image that's scaled by 2 */
+    background-image: url($image);
+    background-size: $width $height;
+  }
+}
+
+@mixin background-image-retina($file, $type, $width, $height) {
+  background-image: url($file + '.' + $type);
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx){
+    & {
+      background-image: url($file + '@2x.' + $type);
+      -webkit-background-size: $width $height;
+      -moz-background-size: $width $height;
+      -o-background-size: $width $height;
+      background-size: $width $height;
+    }
+  }
+}
+
+
+// css3 transitions
+@mixin with-transform() {
+  .csstransforms.csstransitions & { @content; }
+  // .csstransforms3d & { @content; }
+}
+@mixin no-transform() {
+  .no-csstransforms & { @content; }
+}
+
+
+// keyframes mixin
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+
+// Media query mixin
+@mixin breakpoint($point) {
+  @if ($MQs) {
+    $bp-small: "(min-width: #{ em-font(600px) })";
+    $bp-interm: "(min-width: #{ em-font(740px) })";
+    $bp-wide: "(min-width: #{ em-font(1240px) })";
+  
+    @if $point == small {
+      @media #{$bp-small} { @content; }
+    }
+    @else if $point == interm {
+      @media #{$bp-interm} { @content; }
+    }
+    @else if $point == wide {
+      @media #{$bp-wide}  { @content; }
+    }
+    @else {
+      @media (min-width: #{ em-font($point) })  { @content; }
+    }
+  } @else {
+    @content;
+  }
+}

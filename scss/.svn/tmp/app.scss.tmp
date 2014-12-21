@@ -1,0 +1,454 @@
+@import "compass/typography/vertical_rhythm";
+@import "compass/typography/lists/inline-block-list";
+@import "compass/layout/stretching";
+@import "compass/css3";
+@import "compass/utilities";
+@import "compass/support";
+
+@import "susy";
+
+@import "libs/reset";
+@import "libs/settings";
+@import "libs/mixins";
+@import "libs/typography";
+
+@import "libs/schwab-layout";
+@import "libs/schwab-type";
+@import "libs/schwab-color";
+
+
+
+
+
+/* ::Clearfixs and extends. Use which suits best */
+/* ----------------------------------------------------------- */
+
+// CHOOSE YOUR CLEARFIX, OR YOU KNOW USE BOTH. WHATEVER, I'M NOT YOUR MOTHER
+
+// Use clearfix if you need general clearfixing
+.clearfix 			{ @include clearfix; }
+
+
+// Use pie-clearfix if you need clearfixing that doesn't use overflow: hidden
+.pie-clearfix 		{ @include pie-clearfix; }
+
+
+
+// OTHER EXTENDS
+
+// Max width, for images etc... in RWD
+.max-width 			{ max-width: 100%; height: auto; }
+
+
+/* ::Base styles Almost exclusively single element selectors */
+/* ------------------------------------------------------------ */
+
+html {
+	font-size: 100%;
+}
+
+body { 
+	color: $base-color;
+	color: #ffffff;
+	position: relative; // global footer position
+}
+
+img { display: block; }
+
+.row {
+	@include clearfix;
+	width:100%;
+}
+
+.exit-row {
+	padding:rhythm(3) 0 0;
+}
+
+@import "components/global";
+@import "components/navigation";
+@import "components/timeline";
+
+
+.module {
+	@extend .row;
+	&:first-of-type { padding-top: 6.5em; } 
+	&:last-of-type { padding-bottom: 4em; }
+	// @include module(16);
+	
+
+	// edge-stopping image wrapper
+	.fullbg {
+		z-index: 1;
+		overflow: hidden;
+		@include container(18);
+		@include stretch();
+
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		
+		// class notes that image should stack and take layout at certian height
+		&.small-stacked {
+			position: relative;
+			@include at-breakpoint($slideshow-breakpoint) {
+				@include stretch();
+			}
+
+			img {
+				width: 100%;
+				@include at-breakpoint($slideshow-breakpoint) {
+					position: absolute;
+					width: auto;
+					height: 100%;
+					left: 50%;
+					margin-left: -510px; // one half of actual image width
+				}
+			}
+		}
+	}
+	.content { z-index: 10; }
+
+	&:nth-child(odd)	{ background: $sch-lghtgry; }
+	&:nth-child(even)	{ background: #fff; }
+}
+
+
+.module-hero {
+
+	@include module(16, 0) { 
+		
+		// large block
+		.main-block {
+			@include main-block();
+		}
+
+		// secondary right cta box
+		.secondary-content {
+			margin-top: rhythm(1);
+			$block-height: 4;
+			
+			.cta-block {
+				@include cta-block(16, $block-height);
+
+				.icon {
+					position: absolute;
+					top: 50%; margin-top: -1.5em;
+					right: rhythm(1);
+				}
+			}
+
+			@include at-breakpoint(13) {
+				right: $wrapper-padding;
+				padding-top: (columns($block-height, 16, static) / 2); // center block based on fixed height
+				@include stretch-y;
+
+				margin-top: 0;
+
+				.cta-block {
+					.icon {
+						position: absolute;
+						top: auto;
+						bottom: rhythm(1);
+						right: rhythm(1);
+					}
+				}
+			}
+		}
+
+		// secondary index boxes 
+		.boxes {
+			display:none;
+			@include clearfix;
+			margin: rhythm(1) auto 0;
+
+			@include at-breakpoint(8) {
+				display:block;
+				@include layout(8) {
+					// margin-top: rhythm(2);
+					// @include container;
+	    			@include set-container-width;
+	    		}
+	    		// @include pre(0);
+	    	}
+	    	@include at-breakpoint(10) {
+				@include pre(0);
+	    	}
+	    	@include at-breakpoint(16) {
+				
+	    	}
+			.box {
+				@include schwab-contrast(whitebox, anchor);
+				span {@extend .text-context;}
+
+				padding: 0.5em 1em 0.5em 0.5em;
+				// box-sizing: padding-box;
+				// background: rgba(0,0,0,0.7);
+
+				@include span-columns(2,8);
+				@include layout-square(2, height);
+				@include nth-omega();
+				// @include nth-omega(2n);
+
+				@include at-breakpoint(10) {
+					@include set-container-width;
+					// @include remove-nth-omega(2n,child,8);
+					
+					
+					// @include span-columns(1,4);
+					// @include with-grid-settings(8, 3.5) {
+  			// 			width: columns(1,4,static);
+					// };
+					
+					// height: (columns(1,4,static) * 2) - gutter(16,static);
+					@include layout-square(2);
+				}
+			}
+		}
+	}
+
+
+	&.indexed-slideshow-wrapper {
+		padding-top: $menu-height;
+		padding-bottom: 0;
+
+		@include at-breakpoint($slideshow-breakpoint) {
+			padding-top: 6.5em; 
+			padding-bottom: rhythm(4); // set back to wrapper default
+
+			.slideshow-idx-container {
+
+				@include container(18);
+				@include stretch();
+				.content {
+					margin-top: 6.5em;
+				}
+			}
+			.content {
+				&.slideshow-idx {
+					margin-top: columns(8, $total-columns, static);
+				}
+			}
+
+		} 
+	}
+
+}
+
+
+// .module-hero {
+// 	@include module(16) { 
+// 		.main-block {
+// 			@include main-block();
+// 		}
+// 	}
+// }
+
+
+.module-triple-info {
+	@include schwab-contrast(grayarea);
+	@include module(12) { 
+
+		.copy-wrapper {
+		    @include at-breakpoint(12) {
+		        @include span-columns(7,12);
+		        @include pre(0);
+		    }
+		}
+
+		.triple-box {
+			@include triple-box();
+		}
+	}
+}
+
+.module-copy {
+	// @include baseline-grid-background(16px);
+	@include schwab-contrast(grayarea);
+	@include module(14) {
+
+		&.copy-with-cta {
+			.copy-wrapper {
+				@include at-breakpoint(13) {
+					@include span-columns(7);
+				}
+			}
+		}
+
+		// secondary right cta box
+		.secondary-content {
+			margin-top: rhythm(1);
+			$block-height: 5;
+			
+			.cta-block {
+				@include cta-block(16, $block-height);
+
+				.icon {
+					position: absolute;
+					top: 50%; margin-top: -1.5em;
+					right: rhythm(1);
+				}
+			}
+
+			@include at-breakpoint(13) {
+				float: right;
+				// right: $wrapper-padding;
+				// padding-top: (columns($block-height, 16, static) / 2); // center block based on fixed height
+				// @include stretch-y;
+
+				margin-top: 0;
+
+				.cta-block {
+					.icon {
+						position: absolute;
+						top: auto;
+						bottom: rhythm(1);
+						right: rhythm(1);
+					}
+				}
+			}
+		}
+
+	}
+}
+
+.module-image {
+	@include module(16, $wrapper-padding, rhythm(20)) {		
+
+		.main-block {
+			@include main-block(16,7);
+		}
+	}
+}
+
+.module-slideshow {
+	$ss-height: columns(12, $total-columns, static) + rhythm(3);
+
+	.carousel { 
+		@include container(18);
+		height: $ss-height; 
+		.caption {
+			height: 100%;
+			margin-top: ($ss-height - columns(7, $total-columns, static)) / 2;
+		}
+		nav {
+			width: 100%;
+			position: absolute;
+			z-index: 20;
+			.prev { float:left; }
+			.next { float:right; }
+			.disabled { display:none; }
+		}
+
+		&.carousel-fade .carousel-item {
+			right: 0;
+			bottom: 0;
+			@include transition(opacity 1s ease);
+		}
+		&.carousel-fade .carousel-active {
+			position: absolute;
+		}
+
+	}
+	
+	@include module(16, $wrapper-padding, 0) {		
+
+		.main-block {
+			@include main-block(16,7);
+		}
+	}
+}
+
+.module-quad-box {
+	@include module(14) {
+		.quad-box {
+			@include clearfix;
+
+			.box {
+				@extend .copy-cta-block;
+
+				display: block;
+				padding: rhythm(3);
+				margin-top: rhythm(1);
+				@include schwab-contrast(graybox, anchor);
+
+				position: relative;
+
+				@include at-breakpoint(12) {
+					@include span-columns(8,16);
+					@include nth-omega(2n);
+					@include layout-square(7, height);
+				}
+			}
+		}
+	}
+}
+
+.module-recent-info {
+	background: #fff;
+	@include schwab-contrast();
+	@include module(16) {
+		.columns {
+			@extend .copy-recent-info;
+			padding: rhythm(1) 0;
+
+			&.column-stock {
+				// background:rgba(0,100,200,0.4);
+				border-bottom: 1px solid $sch-medgry;
+				padding-bottom: rhythm(3);
+				margin-bottom: rhythm(2);
+			}
+			&.column-news {
+				// background:rgba(200,100,50,0.4);
+			}
+
+			@include at-breakpoint(12) {
+				&.column-stock {
+					border-bottom: none;
+					padding-bottom: rhythm(1);
+					margin-bottom: 0;
+
+					@include span-columns(7,18);
+				}
+				&.column-news {
+					@include span-columns(10,18);
+					border-left: 1px solid $sch-medgry;
+					padding-left: columns(1,18);
+				}
+				@include nth-omega();
+			}
+			
+		}
+		// padding: rhythm(20) 0;
+
+		
+	}
+}
+
+
+
+/* ::Debugs and #grid by Jon Gibbins */
+/* ----------------------------------------------------------- */
+	html {
+		background: transparent url('../img/home_w_scroll_slide_0000_slideshow intro 1_1.jpg') no-repeat center top;
+	}
+
+
+    #grid {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    #grid div.horiz{
+    	// Use this one NOT using a global border-box setting
+    	// height: $base-line-height - 1px;
+    	
+    	// Use this one if you ARE using a global border-box setting
+        height: $base-line-height;
+        
+        // Carry on...
+        border-bottom: 1px solid #ddd;
+        margin: 0;
+        padding: 0;
+    }

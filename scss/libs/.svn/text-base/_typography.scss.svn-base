@@ -1,0 +1,338 @@
+// SET-UP CORE FONT SIZING AND RHYTHM
+
+@font-face {
+    font-family: 'CharlesModernLight';
+    src: url('../assets/fonts/EOT/CharlesModern-Light.eot');
+    src: url('../assets/fonts/EOT/CharlesModern-Light.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/WOFF/CharlesModern-Light.woff') format('woff'),
+         // url('../assets/fsalbert-italic-webfont.ttf') format('truetype'),
+         url('../assets/fonts/SVG/CharlesModern-Light.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
+@font-face {
+    font-family: 'CharlesModern';
+    src: url('../assets/fonts/EOT/CharlesModern-Regular.eot');
+    src: url('../assets/fonts/EOT/CharlesModern-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../assets/fonts/WOFF/CharlesModern-Regular.woff') format('woff'),
+         // url('../assets/fsalbert-italic-webfont.ttf') format('truetype'),
+         url('../assets/fonts/SVG/CharlesModern-Regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Default Sizing and spacing
+// ------------------------------------------------------------
+
+// You'll often get better results here if you work in numbers the divide into the baseline.
+// IE, if you have a baseline of 6px, multiples or divisions of often provide best results in ems 
+.text-big-bold {
+    @extend .ext-animation-color;
+    @include advancedtype;
+    font-family: "CharlesModernLight", Arial, sans-serif;
+    @include adjust-font-size-to(28px,4); 
+
+    @include at-breakpoint(8) {
+        @include adjust-font-size-to(36px); 
+    }
+    @include at-breakpoint(10) {
+        @include adjust-font-size-to(44px); 
+    }
+}
+
+.text-big {
+    @extend .ext-animation-color;
+    @include advancedtype;
+    font-family: "CharlesModernLight", Arial, sans-serif;
+    @include adjust-font-size-to(24px, 3.5); 
+
+    @include at-breakpoint(10) {
+        @include adjust-font-size-to(34px); 
+    }
+    // @include at-breakpoint(12) {
+    //     @include adjust-font-size-to(34px); 
+    // }
+}
+
+.text-heading {
+    @extend .ext-animation-color;
+    @include advancedtype;
+    font-family: "CharlesModernLight", Arial, sans-serif;
+    @include adjust-font-size-to(20px); 
+
+    @include at-breakpoint(8) {
+        @include adjust-font-size-to(26px); 
+    }
+}
+
+.text-sub-heading {
+    font-family: "CharlesModernLight", Arial, sans-serif;
+    @include adjust-font-size-to(20px, 3);
+}
+
+.text-area-title {
+    @include advancedtype;
+    font-family: "CharlesModernLight", Arial, sans-serif;
+    @include adjust-font-size-to(20px);
+    
+    @include at-breakpoint(8) {
+        @include adjust-font-size-to(26px); 
+    }
+}
+
+.text-context {
+    font-family: Arial, sans-serif;
+    @include adjust-font-size-to(14px,2); 
+}
+
+.text-description {
+    font-family: Arial, sans-serif;
+    @include adjust-font-size-to(13px,2);
+}
+
+.text-meta-large {
+    font-family: Arial, sans-serif;
+    @include adjust-font-size-to(16px); 
+    text-transform: uppercase;
+}
+
+.text-meta {
+    @extend .ext-animation-color;
+    font-family: "CharlesModern", Arial, sans-serif;
+    @include adjust-font-size-to(13px); 
+    text-transform: uppercase;
+}
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 { 
+    @extend .text-big-bold;
+	margin: 0 0 rhythm(2, 44px) 0;  						// 1 lines below, based on font size 
+}
+
+h2 { 
+    @extend .text-big;
+	// @include adjust-font-size-to(34px); 
+	margin: rhythm(2, 34px) 0;  						// 1 lines below, based on font size 
+} 
+
+h3 { 
+    @extend .text-sub-heading;
+	// @include adjust-font-size-to(28px); 
+	margin: 0 0 rhythm(2, 26px) 0;  						// 1 lines below, based on font size 
+} 
+
+h4 { 
+	@include adjust-font-size-to(22px); 
+	margin: 0 0 rhythm(2, 22px) 0;  						// 1 lines below, based on font size 
+} 
+
+h5 { 
+	@include adjust-font-size-to(18px); 
+	margin: 0 0 rhythm(1, 18px) 0;  						// 1 lines below, based on font size 
+} 
+
+h6 { 
+	@include adjust-font-size-to(16px); 
+	margin: 0 0 rhythm(1, 16px) 0;  						// 1 lines below, based on font size 
+} 	
+
+p, label { 
+    @extend .text-sub-heading;
+	// @include adjust-font-size-to(18px); 
+	margin: 0 0 rhythm(2, 20px) 0;							// 2 lines below, based on font size
+}
+
+ol, ul, dl {
+	@include adjust-font-size-to(16px);
+	margin: 0 rhythm(3, 16px) rhythm(2, 16px);
+
+    li { 
+        line-height: auto; 
+        ul,
+        ol {
+            margin-bottom:0;
+        }
+    }
+
+    dt { @extend .text-meta; }
+    dd { @extend .text-description; margin-bottom: rhythm(1, 13px) }
+}
+
+pre {
+    code {
+        @include adjust-font-size-to(16px); 
+        margin: 0 0 rhythm(2) 0;
+        font-family: monospace;
+        color:$sch-lghtgry;
+    }
+
+    white-space: pre-wrap; 
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap; 
+    word-wrap: break-word;
+
+    background: $sch-drkerblue; // rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: rhythm(3, 16px);
+}
+
+
+// Navigation
+// ------------------------------------------------------------
+nav {
+    font-family: "CharlesModern", Arial, sans-serif;
+    text-transform: uppercase;
+    header & {
+        font-family: "CharlesModernLight", Arial, sans-serif;
+        .left-menu { 
+            li { @include adjust-font-size-to(18px,5); }
+        }
+        .right-menu {
+            li { @include adjust-font-size-to(18px,5); }
+        }
+        @include at-breakpoint($menu-interm-size) {
+            font-family: "CharlesModern", Arial, sans-serif;
+            .left-menu { 
+                li { @include adjust-font-size-to(12px,4); }
+            }
+            .right-menu {
+                li { @include adjust-font-size-to(11px,4); }
+            }
+        }
+    }
+    footer & {
+        li { @include adjust-font-size-to(11px,5); }
+    }
+}
+
+// Tables
+// ------------------------------------------------------------
+table {
+    width: 100%;
+    margin: 0 0 rhythm(2, 16px) 0;
+
+    @include table-scaffolding;
+
+    @include inner-table-borders(1px, $sch-medgry);
+    @include outer-table-borders(2px, $sch-medgry);
+
+    @include alternating-rows-and-columns(#fff, $sch-lghtgry, #222222);
+}
+
+// Links
+// ------------------------------------------------------------
+.link { // cosmetic cta on large-block links
+
+    &.link-page,
+    &.link-video {
+        @extend .text-meta;
+        // &:after {
+        //     content:' >'
+        // }
+    }
+}
+
+a {
+    // @include transition(all 0.3s ease);  
+    @extend .link;
+    @extend .ext-animation-color;
+
+    color: $action;
+    text-decoration: none;
+
+    // &.icon { @extend .text-meta; }
+    .no-touch &:hover { color: $action-respond; }
+
+    @extend %block-link-color-style !optional;
+}
+
+
+
+
+
+
+// ICONS
+// ------------------------------------------------------------
+
+.icon {
+    &.icon-blue {
+        background-color: $sch-brndblue;
+    }
+    background-position: center;
+    // background-size: contain;
+    
+    width: 3em;
+    height: 3em;
+
+    &.link-page,
+    &.link-video {
+        height: auto;
+        width: auto;
+        padding: 1em 3em 1em 0;
+        line-height: 3em;
+        background-position: center right;
+    }
+}
+
+.action-icon {
+    // left:50%;
+    // top:50%;
+    // margin:-3em 0 0 -3em;
+
+    .main-block & {
+        // top: 50%;
+        // left: auto;
+        // right: -8em;
+        // margin-top: -4.25em;
+    }
+
+    display: block;
+
+    width: 6em;
+    text-align: center;
+    
+    .instructions { 
+        @extend .text-meta-large; 
+        line-height: 1.5em;
+        color: $sch-drkerblue;
+    }
+    .icon {
+        height: 6em;
+        width: 6em;
+        background-size: 60% 60%;
+    }
+}
+
+
+// a:hover {
+//     .icon-play-button-schwab {
+//         background-image: url('/assets/icons/png/play-button-white.png');
+//     }
+// }
+
+
+// Core typography
+// ------------------------------------------------------------
+
+ul { 
+    @include unordered; 
+}
+ol { 
+    @include ordered;
+}
+
+strong, b 	{ font-weight: 600; }
+em, i, q 	{ font-style: italic; }
+
+blockquote p {
+    @extend .text-big;
+    margin: rhythm(2, 34px) 0;
+}

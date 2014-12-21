@@ -9,10 +9,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Hero Slider by David J. Davis</title>
 	<link rel="stylesheet" href="css/hero.css" />
-	<link rel="stylesheet" href="../stylesheets/ddstyles-subpages-min.css">
-	<script src="js/libs/modernizr.js"></script>
+	<link rel="stylesheet" href="../assets/stylesheets/app-sub-pages.css">
+	<script src="../assets/javascripts/vendor/modernizr.js"></script>
   </head>
   <body>
+
+  <h2 class="forkTitle"><a href="https://github.com/david-j-davis/ddHeroSlider" target="_blank" alt="View source on github."><img data-src='../assets/images/fork.svg' class='iconic'>Modifed flexbox (originally Susy framework) slider</a></h2>
 
 
 	<!-- Hero with 4 Box Index -->
@@ -91,19 +93,8 @@
 //jQuery code for the content gallery above
 //-----------------------------------------
 
-//Check for screen size
-
-var smallScreen;
-
-if(!Modernizr.mq('(min-width:440px)') ){
-  smallScreen = true;
-} else {
-  smallScreen = false;
-}
-
-  function HeroSlideshow() {
-
-    if (smallScreen === false) {
+(function ( $ ) {
+  $.fn.ddHeroSlider = function() {
 
       $('div.hero-slide:gt(0)').hide();
        
@@ -158,8 +149,18 @@ if(!Modernizr.mq('(min-width:440px)') ){
                 }
 
       })// End arrow function
-    } //End if statement
-  } HeroSlideshow();// End & initialize main HeroSlideshow function
+
+  };//End hero slider main function
+
+  $(window).resize(function() {
+   if(!Modernizr.mq('(min-width:440px)') ){
+    clearInterval(autoheroslideshow);
+    } 
+  }) //End window resize
+
+  $(window).trigger('resize');
+
+}( jQuery ));
 
 </code></pre>
 <h3 class="codeTitle"><a href="">Click to view jQuery code</a></h3>
@@ -167,9 +168,10 @@ if(!Modernizr.mq('(min-width:440px)') ){
 
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../assets/javascripts/vendor/jquery-2.1.1.min.js"><\/script>')</script>
 	<script src="js/libs/ddHeroSlider.js"></script>
-	<script src="../javascripts/iconic.min.js"></script>
-	<script src="../javascripts/subpagescripts.js"></script>
+	<script src="../assets/javascripts/iconic.min.js"></script>
+	<script src="../assets/javascripts/subpagescripts.js"></script>
 	<script>
 		$('.hero-slide').ddHeroSlider();
 	</script>
