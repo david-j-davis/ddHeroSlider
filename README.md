@@ -25,9 +25,9 @@ Open source projects used:
 
 Demo
 -----------
-[ddHeroSlider]
+Currently featured on [aboutschwab.com] homepage.
 
-[ddHeroSlider]:http://david-james-davis.com/chproject
+[aboutschwab.com]:https://www.aboutschwab.com/
 [jQuery]:http://jquery.com
 [David Davis]:http://david-james-davis.com
 [Modernizr]:http://modernizr.com/
