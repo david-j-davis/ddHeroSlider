@@ -1,11 +1,12 @@
 ddHeroSlider
 =========
 
-**A lean responsive Flexbox slider with smooth transitions and text pagination created by [David Davis].**
+**A lean responsive Flexbox* slider with smooth transitions and text pagination created by [David Davis].**
 
   - Built with Flexbox
   - Responsive slider
   - lightweight jQuery
+  * Flexbox is utilized in this repo, but Susy css framework was used on aboutschwab.com 
 
 
 
